@@ -9,7 +9,7 @@ const QuillTextEditor = () => {
     })
 
     return (
-        <QuillNoSSRWrapper  theme="snow" />
+        <QuillNoSSRWrapper  theme="snow" className='w-4/5 mx-auto'/>
     )
 }
 
