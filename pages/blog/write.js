@@ -1,9 +1,12 @@
-import { QuillTextEditor } from "../../components/components";
+import { QuillTextEditor, NavbarWrite } from "../../components/components";
 
 const writeArticle = () => {
-  return (
-    <QuillTextEditor />
-  )
-}
+	return (
+		<>
+			<NavbarWrite />
+			<QuillTextEditor />
+		</>
+	);
+};
 
-export default writeArticle
+export default writeArticle;
