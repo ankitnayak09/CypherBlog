@@ -8,13 +8,13 @@ import TopNavBar from '../components/layout/topNavBar';
 import PostList from '../components/posts/PostList';
 
 
+import TopNavBar from "../components/layout/topNavBar";
 
 export default function Home() {
-  // const dispatch=useDispatch();
-  // useEffect(() => {
-  //   dispatch(testAction())
-  // }, [])
-
+	// const dispatch=useDispatch();
+	// useEffect(() => {
+	//   dispatch(testAction())
+	// }, [])
 
   return (
     <>
