@@ -44,7 +44,7 @@ const QuillTextEditor = () => {
     })
 
     return (
-        <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" className='w-4/5 mx-auto h-80 min-h-full' />
+        <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" className='w-4/5 mx-auto h-80 min-h-full my-5' />
 
     )
 }
