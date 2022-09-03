@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { testAction } from '../actions/testAction'
 
 import TopNavBar from '../components/layout/topNavBar';
+import PostList from '../components/posts/PostList';
 
 
 
@@ -18,6 +19,8 @@ export default function Home() {
   return (
     <>
    <TopNavBar/>
+   <PostList/>
+
    </>
   )
 }
