@@ -2,6 +2,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { post } from "../../../backend/routes/postRoute"
 import { getAllPosts } from "../../actions/postAction"
 
 /* This example requires Tailwind CSS v2.0+ */
@@ -81,6 +82,7 @@ const PostList = () => {
   const {loading,posts}=useSelector(state=>state.posts)
     return (
         <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
+       
         <div className="absolute inset-0">
           <div className="bg-white h-1/3 sm:h-2/3" />
         </div>
@@ -91,8 +93,8 @@ const PostList = () => {
           </div>
           <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
             {posts.map((post) => (
-              <Link href={`/post/${post._id}`}>
-              <div key={post.title} className="flex cursor-pointer flex-col rounded-lg shadow-lg overflow-hidden">
+              <Link key={post.title} href={`/post/${post._id}`}>
+              <div  className="flex cursor-pointer flex-col rounded-lg shadow-lg overflow-hidden">
                 <div className="flex-shrink-0">
                   <img className="h-48 w-full object-cover" src={post.image.url} alt="" />
                 </div>

@@ -1,5 +1,5 @@
 
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   ArchiveIcon,
@@ -23,10 +23,22 @@ import {
   UserCircleIcon as UserCircleIconSolid,
 } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
+import { getPostDetails } from '../../actions/postAction'
+import { useDispatch, useSelector } from 'react-redux'
+import date from 'date-and-time';
 
 const postId = () => {
-    const router=useRouter()
+      const dispatch=useDispatch();
+      const router=useRouter();
+    let postId= router.query.postId
+        useEffect(() => {
+if(postId){
+        dispatch(getPostDetails(postId))
+}
+        }, [postId])
+        const {loading,post}=useSelector(state=>state.post)
     return (
+     <>   {loading===false?(
         <main className="flex-1 pt-10">
                <button onClick={()=>{router.back()}} className="fixed cursor-pointer top-0 left-0 z-50   p-2 bg-blue-100 m-2 rounded-tr-[21px] rounded-bl-[21px] rounded-tl-small rounded-br-small drop-shadow-xl">
               <ChevronLeftIcon className="w-8 fill-pri-text-gray"/>
@@ -38,7 +50,7 @@ const postId = () => {
                 <div>
                   <div className="md:flex md:items-center md:justify-between md:space-x-4 xl:border-b xl:pb-6">
                     <div>
-                      <h1 className="text-2xl font-bold text-gray-900">ARIA attribute misspelled</h1>
+                      <h1 className="text-2xl font-bold text-gray-900">{post.title}</h1>
                       {/* <p className="mt-2 text-sm text-gray-500">
                         #400 opened by{' '}
                         <a href="#" className="font-medium text-gray-900">
@@ -72,7 +84,7 @@ const postId = () => {
                       <div className="flex items-center space-x-2">
                         <CalendarIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         <span className="text-gray-900 text-sm font-medium">
-                          Created on <time dateTime="2020-12-02">Dec 2, 2020</time>
+                          Created on <time dateTime="2020-12-02">{date.format(new Date(post.createdAt), 'ddd, MMM DD YYYY') }</time>
                         </span>
                       </div>
                     </div>
@@ -83,13 +95,13 @@ const postId = () => {
                           <li className="flex justify-start">
                             <a href="#" className="flex items-center space-x-3">
                               <div className="flex-shrink-0">
-                                <img
+                              <img
                                   className="h-5 w-5 rounded-full"
-                                  src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+                                  src={post.author.avatar}
                                   alt=""
                                 />
                               </div>
-                              <div className="text-sm font-medium text-gray-900">Eduardo Benz</div>
+                              <div className="text-sm font-medium text-gray-900">{post.author.name}</div>
                             </a>
                           </li>
                         </ul>
@@ -97,7 +109,7 @@ const postId = () => {
                       <div>
                         <h2 className="text-sm font-medium text-gray-500">Tags</h2>
                         <ul role="list" className="mt-2 leading-8">
-                       
+                       {post.tags.map((tag)=>(
                           <li className="inline">
                             <a
                               href="#"
@@ -106,34 +118,17 @@ const postId = () => {
                               <div className="absolute flex-shrink-0 flex items-center justify-center">
                                 <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
                               </div>
-                              <div className="ml-3.5 text-sm font-medium text-gray-900">Accessibility</div>
+                              <div className="ml-3.5 text-sm font-medium text-gray-900">{tag}</div>
                             </a>{' '}
-                          </li>
+                          </li>))}
                         </ul>
                       </div>
                     </div>
                   </aside>
                   <div className="py-3 xl:pt-6 xl:pb-0">
                     <h2 className="sr-only">Description</h2>
-                    <div className="prose max-w-none">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, hic? Commodi cumque
-                        similique id tempora molestiae deserunt at suscipit, dolor voluptatem, numquam, harum
-                        consequatur laboriosam voluptas tempore aut voluptatum alias?
-                      </p>
-                      <ul role="list">
-                        <li>
-                          Tempor ultrices proin nunc fames nunc ut auctor vitae sed. Eget massa parturient vulputate
-                          fermentum id facilisis nam pharetra. Aliquet leo tellus.
-                        </li>
-                        <li>Turpis ac nunc adipiscing adipiscing metus tincidunt senectus tellus.</li>
-                        <li>
-                          Semper interdum porta sit tincidunt. Dui suspendisse scelerisque amet metus eget sed. Ut
-                          tellus in sed dignissim.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                    <div dangerouslySetInnerHTML={{__html: post.content}} />
+               </div>
                 </div>
               </div>
           </div>
@@ -205,6 +200,7 @@ const postId = () => {
           </div>
         </div>
       </main>
+      ):("Loading")}</>
     )
 }
 

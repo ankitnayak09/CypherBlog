@@ -55,3 +55,31 @@ export const postReducer=createReducer({posts:[],shopCount:0,page:1},{
         },
     
     })
+
+
+
+
+
+    export const postDetailsReducer=createReducer({post:{}},{
+        POST_DETAILS_REQUEST:(state)=>{
+            state.loading=true;
+            state={...state};
+        },
+        POST_DETAILS_SUCCESS:(state,action)=>{
+            state.loading=false;
+            state.post=action.payload.post;
+            
+        },
+        POST_DETAILS_FAIL:(state,action)=>{
+            state.loading=false;
+            state.error=action.payload
+        },
+    
+  
+        CLEAR_ERRORS:(state,action)=>{
+            state={...state};
+            state.error=null
+        },
+    
+    })
+    

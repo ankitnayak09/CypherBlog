@@ -32,6 +32,32 @@ export const getAllPosts=(tag)=>async(dispatch)=>{
 
 }
 
+
+export const getPostDetails=(postId)=>async(dispatch)=>{
+    try{
+        dispatch({
+            type:"POST_DETAILS_REQUEST",
+        });
+        let url=`${process.env.NEXT_PUBLIC_BACKEND_HOST}/api/v1/post/${postId}`
+     
+        const{data}=await axios.get(url)
+        // console.log(data)
+
+        dispatch({ 
+            type:"POST_DETAILS_SUCCESS",
+            payload:data
+        });
+
+    }catch(error){
+        console.log(error)      
+        dispatch({ 
+            type:"POST_DETAILS_FAIL",
+            payload:error.response.data.message
+        });
+    }
+
+}
+
 //create post
 export const createPost=(postData)=>async(dispatch)=>{
     try{
