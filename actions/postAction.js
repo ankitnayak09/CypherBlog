@@ -86,3 +86,32 @@ export const createPost=(postData)=>async(dispatch)=>{
     }
 
 }
+
+
+
+export const createUpdatePostLike=(postId)=>async(dispatch)=>{
+    try{
+        dispatch({
+            type:"UPDATE_POST_REQUEST",
+        });
+        // console.log(shopId)
+        const config={headers:{"Content-Type":"application/json"},withCredentials: true}
+
+        const{data}=await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_HOST}/api/v1/post/${postId}/likePost`,config)
+     
+// console.log(data)
+  
+        dispatch({
+            type:"UPDATE_POST_SUCCESS",
+            payload:data.success
+        });
+
+    }catch(error){
+
+        dispatch({
+            type:"UPDATE_POST_FAIL",
+            payload:error.response.data.message
+        });
+    }
+
+}

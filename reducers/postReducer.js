@@ -83,3 +83,30 @@ export const postReducer=createReducer({posts:[],shopCount:0,page:1},{
     
     })
     
+
+
+    export const updatePostReducer=createReducer({},{
+        UPDATE_POST_REQUEST:(state)=>{
+            state.loading=true;
+        },
+        UPDATE_POST_SUCCESS:(state,action)=>{
+            state.loading=false;
+        
+        },
+        UPDATE_POST_FAIL:(state,action)=>{
+            state.loading=false;
+            state.error=action.payload
+        },
+        UPDATE_POST_RESET:(state,action)=>{
+            state.loading=false;
+            state.success=false
+        },
+    
+    
+      
+        CLEAR_ERRORS:(state,action)=>{
+            
+            state.error=null
+        },
+    
+    })

@@ -5,7 +5,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { PlusSmIcon } from '@heroicons/react/solid'
 // import {GoogleLogin} from 'react-google-login';
 import {GoogleLogin} from '@react-oauth/google';
-import { googleSignIn } from '../../actions/userAction';
+import { googleSignIn, logout } from '../../actions/userAction';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -17,15 +17,22 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
+  { name: 'home', href: '/', current: true },
   { name: 'Team', href: '#', current: false },
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+]
+const tags=[
+  "gaming",
+  "fun",
+  "learning",
+  "engineering",
+  "science",
+  "art"
+  
 ]
 
 function classNames(...classes) {
@@ -45,7 +52,7 @@ const TopNavBar = () => {
     
       }
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-gray-800 ">
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,18 +69,20 @@ const TopNavBar = () => {
                       )}
                     </Disclosure.Button>
                   </div>
+                  <Link href="/">
                   <div className="flex-shrink-0 flex items-center">
                     <img
-                      className="block lg:hidden h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      className="block lg:hidden rounded-full h-8 w-auto"
+                      src={"logo/logoSmall.png"}
                       alt="Workflow"
+                   
                     />
                     <img
                       className="hidden lg:block h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                      src={"logo/logoFull.png"}
                       alt="Workflow"
                     />
-                  </div>
+                  </div></Link>
                   <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                     {navigation.map((item) => (
                       <a
@@ -171,26 +180,27 @@ const TopNavBar = () => {
             </div>
   
             <Disclosure.Panel className="md:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navigation.map((item) => (
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 max-h-32 overflow-y-scroll">
+                {tags.map((item) => (
+                // {navigation.map((item) => (
                   <Disclosure.Button
-                    key={item.name}
+                    key={item}
                     as="a"
-                    href={item.href}
+                    href={"/post/tag/"+`${item}`}
                     className={classNames(
                       item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block px-3 py-2 rounded-md text-base font-medium'
+                      'block px-3 py-2 rounded-md text-base font-medium '
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    // aria-current={item.current ? 'page' : undefined}
                   >
-                    {item.name}
+                    <span className="text-gray-600">#</span>{item}
                   </Disclosure.Button>
                 ))}
               </div>
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5 sm:px-6">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={user?.imageUrl} alt="" />
+                    <img className="h-10 w-10 rounded-full" src={user?.avatar} alt="" />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium text-white">{user?.name}</div>
@@ -215,6 +225,13 @@ const TopNavBar = () => {
                       {item.name}
                     </Disclosure.Button>
                   ))}
+                        <Disclosure.Button
+                onClick={()=>{dispatch(logout())}}
+                      
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    >
+                      Sign out
+                    </Disclosure.Button>
                 </div>
               </div>
             </Disclosure.Panel>

@@ -19,13 +19,14 @@ const TagsModal = ({tags}) => {
 
     return (
         <>
-          <div className="fixed bottom-48 -right-14 flex items-center justify-center">
+          <div className="fixed bottom-48 z-50 -right-14 flex items-center justify-center">
+
         <button
           type="button" 
           onClick={()=>{setOpen(true)}}
           className="rotate-90  rounded-b-full bg-black  px-11 py-1 text-base font-medium text-white  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          menu
+          tags
         </button>
       </div>
         <Transition.Root show={open} as={Fragment}>
@@ -54,13 +55,13 @@ const TagsModal = ({tags}) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-10 text-left overflow-y-scroll shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6 border-2 border-gray-400 max-h-80 ">
+              <div className="relative inline-block align-bottom bg-white rounded-lg px-1 pt-5 pb-10 text-left overflow-y-scroll shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6 border-2 border-gray-400 max-h-80 ">
 
 
 
               {/* <div className="flex  flex-col"> */}
                     {tags.map((tag)=>(
-                        <div key={cat}  onClick={()=>{menuBtnClick("/post/category/"+`${cat}`)}}  className="flex hover:bg-gray-100 border-b-2 pr-16">
+                        <div key={tag}  onClick={()=>{menuBtnClick("/post/tag/"+`${tag}`)}}  className="flex hover:bg-gray-100 border-b-2 pr-16">
                             {/* <Link href={"#"+`${cat}`}> */}
           <button className="p-2  text-lg font-medium text-pri-text-light-gray" >{tag}</button>
           {/* <a onClick={ menuBtnClick(cat)} className="p-2" >{cat}</a> */}

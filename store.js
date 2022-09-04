@@ -1,6 +1,6 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE,createWrapper } from "next-redux-wrapper";
-import { newPostReducer, postDetailsReducer, postReducer } from "./reducers/postReducer";
+import { newPostReducer, postDetailsReducer, postReducer, updatePostReducer } from "./reducers/postReducer";
 import { testReducer } from "./reducers/testReducer";
 import { userReducer } from "./reducers/userReducer";
 
@@ -13,7 +13,8 @@ const combineReducer=combineReducers({
    user:userReducer,
    newPost:newPostReducer,
    posts:postReducer,
-   post:postDetailsReducer
+   post:postDetailsReducer,
+   updatePost:updatePostReducer
  
 })
 
