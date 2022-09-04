@@ -1,7 +1,9 @@
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
 
 const QuillTextEditor = () => {
+    const [value, setValue] = useState('');
 
     const modules = {
         toolbar: [
@@ -43,8 +45,14 @@ const QuillTextEditor = () => {
         loading: () => <p>Loading ...</p>,
     })
 
+    const handleChangeInput=(value)=>{
+        console.log(value)
+        // setValue(value)
+    }
+    const editor=useRef(null)
+
     return (
-        <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" className='w-4/5 mx-auto h-80 min-h-full my-5' />
+        <QuillNoSSRWrapper ref={editor} onChange={(e)=>{handleChangeInput(e)}}   modules={modules}  formats={formats} theme="snow" className='w-4/5 mx-auto h-80 min-h-full my-5' />
 
     )
 }

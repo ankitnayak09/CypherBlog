@@ -26,3 +26,32 @@ export const newPostReducer=createReducer({post:{}},{
     },
 
 })
+
+
+
+export const postReducer=createReducer({posts:[],shopCount:0,page:1},{
+    
+        ALL_POST_REQUEST:(state)=>{
+            state.loading=true;
+            state=state
+        
+        },
+        ALL_POST_SUCCESS:(state,action)=>{
+            state.loading=false;
+           
+          
+            state.posts=action.payload.posts
+            // state.posts=state.posts.concat(action.payload.posts)
+            // state.shopCount=action.payload.shopCount
+            // state.page=state.page+1
+        },
+        ALL_POST_FAIL:(state,action)=>{
+            state.loading=false;
+            state.error=action.payload
+        },
+        CLEAR_ERRORS:(state,action)=>{
+            state={...state};
+            state.error=null
+        },
+    
+    })
